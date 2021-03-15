@@ -17,7 +17,7 @@ export interface UploadMultipartParams {
 export type UploadMultipartsModule = Module<UploadMultipartParams>
 
 export function instantiateUploadMultipartsModule(
-  client: GlacierClient
+  glacierClient: GlacierClient
 ): UploadMultipartsModule {
   return {
     async execute({ vault, uploadId, file }) {
@@ -29,7 +29,7 @@ export function instantiateUploadMultipartsModule(
       })
 
       try {
-        await client.send(command)
+        await glacierClient.send(command)
       } catch (error) {
         throw new UploadFileError()
       }

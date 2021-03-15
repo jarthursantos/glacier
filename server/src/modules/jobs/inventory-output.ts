@@ -18,7 +18,7 @@ export type InventoryOutputJobModule = Module<
 >
 
 export function instantiateInventoryOutputJobModule(
-  client: GlacierClient
+  glacierClient: GlacierClient
 ): InventoryOutputJobModule {
   return {
     async execute({ vault, job }) {
@@ -32,9 +32,7 @@ export function instantiateInventoryOutputJobModule(
         jobId: job.id
       })
 
-      const response = await client.send(command)
-
-      // console.log(response)
+      const response = await glacierClient.send(command)
 
       return response.body
     }

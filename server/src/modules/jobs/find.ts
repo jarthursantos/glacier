@@ -18,7 +18,7 @@ export interface FindJobParams {
 export type FindJobModule = Module<FindJobParams, Job | undefined>
 
 export function instantiateFindJobModule(
-  client: GlacierClient,
+  glacierClient: GlacierClient,
   dateParser: DateParser
 ): FindJobModule {
   return {
@@ -29,7 +29,7 @@ export function instantiateFindJobModule(
         accountId: ACCOUNT_ID
       })
 
-      const response = await client.send(command)
+      const response = await glacierClient.send(command)
 
       if (response.$metadata.httpStatusCode === 404) {
         return undefined

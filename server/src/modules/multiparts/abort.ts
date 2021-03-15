@@ -16,7 +16,7 @@ export interface AbortMultipartUploadParams {
 export type AbortMultipartsUploadModule = Module<AbortMultipartUploadParams>
 
 export function instantiateAbortMultipartsUploadModule(
-  client: GlacierClient
+  glacierClient: GlacierClient
 ): AbortMultipartsUploadModule {
   return {
     async execute({ vault, uploadId }) {
@@ -27,7 +27,7 @@ export function instantiateAbortMultipartsUploadModule(
       })
 
       try {
-        await client.send(command)
+        await glacierClient.send(command)
       } catch (error) {
         throw new AbortMultipartUploadError()
       }

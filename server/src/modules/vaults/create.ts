@@ -10,7 +10,7 @@ export interface CreateVaultParams {
 export type CreateVaultModule = Module<CreateVaultParams>
 
 export function instantiateCreateVaultModule(
-  client: GlacierClient
+  glacierClient: GlacierClient
 ): CreateVaultModule {
   return {
     async execute({ vaultName }) {
@@ -19,7 +19,7 @@ export function instantiateCreateVaultModule(
         accountId: ACCOUNT_ID
       })
 
-      await client.send(command)
+      await glacierClient.send(command)
     }
   }
 }

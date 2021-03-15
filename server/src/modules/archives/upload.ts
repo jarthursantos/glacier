@@ -14,7 +14,7 @@ export interface UploadArchiveParams {
 export type UploadArchiveModule = Module<UploadArchiveParams, string>
 
 export function instantiateUploadArchiveModule(
-  client: GlacierClient
+  glacierClient: GlacierClient
 ): UploadArchiveModule {
   return {
     async execute({ vault, file, description }) {
@@ -25,7 +25,7 @@ export function instantiateUploadArchiveModule(
         body: file
       })
 
-      const { archiveId } = await client.send(command)
+      const { archiveId } = await glacierClient.send(command)
 
       if (!archiveId) {
         throw new UploadFileError()

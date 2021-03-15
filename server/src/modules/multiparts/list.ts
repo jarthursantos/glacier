@@ -19,7 +19,7 @@ export type ListMultipartsUploadsModule = Module<
 >
 
 export function instantiateListMultipartsUploadsModule(
-  client: GlacierClient,
+  glacierClient: GlacierClient,
   dateParser: DateParser
 ): ListMultipartsUploadsModule {
   return {
@@ -31,7 +31,7 @@ export function instantiateListMultipartsUploadsModule(
 
       const multiparts: MultipartUpload[] = []
 
-      const result = await client.send(command)
+      const result = await glacierClient.send(command)
 
       if (result.$metadata.httpStatusCode === 404) {
         return []

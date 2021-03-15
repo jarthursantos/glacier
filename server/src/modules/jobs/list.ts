@@ -13,7 +13,7 @@ import { DateParser } from '~/utils/date/parse'
 export type ListJobsModule = Module<Vault, Job[]>
 
 export function instantiateListJobsModule(
-  client: GlacierClient,
+  glacierClient: GlacierClient,
   dateParser: DateParser
 ): ListJobsModule {
   return {
@@ -23,7 +23,7 @@ export function instantiateListJobsModule(
         accountId: ACCOUNT_ID
       })
 
-      const response = await client.send(command)
+      const response = await glacierClient.send(command)
 
       const jobs: Job[] = []
 

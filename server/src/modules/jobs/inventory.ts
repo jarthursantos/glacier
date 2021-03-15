@@ -16,7 +16,7 @@ export interface InventoryJobParams {
 export type InventoryJobModule = Module<InventoryJobParams, string>
 
 export function instantiateInventoryJobModule(
-  client: GlacierClient,
+  glacierClient: GlacierClient,
   dateParser: DateParser
 ): InventoryJobModule {
   return {
@@ -35,7 +35,7 @@ export function instantiateInventoryJobModule(
         }
       })
 
-      const { jobId } = await client.send(command)
+      const { jobId } = await glacierClient.send(command)
 
       if (!jobId) {
         throw new CreateJobError()

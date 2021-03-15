@@ -18,7 +18,7 @@ export interface SelectJobParams {
 export type SelectJobModule = Module<SelectJobParams, string>
 
 export function instantiateSelectJobModule(
-  client: GlacierClient
+  glacierClient: GlacierClient
 ): SelectJobModule {
   return {
     async execute({ vault, description, archiveId, query, queryType }) {
@@ -48,7 +48,7 @@ export function instantiateSelectJobModule(
         }
       })
 
-      const { jobId } = await client.send(command)
+      const { jobId } = await glacierClient.send(command)
 
       if (!jobId) {
         throw new CreateJobError()

@@ -8,7 +8,7 @@ import { DateParser } from '~/utils/date/parse'
 export type ListVaultsModule = Module<void, Vault[]>
 
 export function instantiateListVaultsModule(
-  client: GlacierClient,
+  glacierClient: GlacierClient,
   dateParser: DateParser
 ): ListVaultsModule {
   return {
@@ -16,7 +16,7 @@ export function instantiateListVaultsModule(
       const command = new ListVaultsCommand({ accountId: ACCOUNT_ID })
 
       try {
-        const result = await client.send(command)
+        const result = await glacierClient.send(command)
 
         if (result.$metadata.httpStatusCode === 404) {
           return []

@@ -11,7 +11,7 @@ export interface DeleteVaultParams {
 export type DeleteVaultModule = Module<DeleteVaultParams>
 
 export function instantiateDeleteVaultModule(
-  client: GlacierClient
+  glacierClient: GlacierClient
 ): DeleteVaultModule {
   return {
     async execute({ vault }) {
@@ -20,7 +20,7 @@ export function instantiateDeleteVaultModule(
         accountId: ACCOUNT_ID
       })
 
-      await client.send(command)
+      await glacierClient.send(command)
     }
   }
 }

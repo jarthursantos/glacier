@@ -19,7 +19,7 @@ export type CompleteMultipartsUploadModule = Module<
 >
 
 export function instantiateCompleteMultipartsUploadModule(
-  client: GlacierClient
+  glacierClient: GlacierClient
 ): CompleteMultipartsUploadModule {
   return {
     async execute({ vault, uploadId }) {
@@ -29,7 +29,7 @@ export function instantiateCompleteMultipartsUploadModule(
         uploadId
       })
 
-      const { archiveId } = await client.send(command)
+      const { archiveId } = await glacierClient.send(command)
 
       if (!archiveId) {
         throw new UploadFileError()

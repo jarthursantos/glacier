@@ -1,4 +1,5 @@
 import { GlacierClient } from '@aws-sdk/client-glacier'
+import { S3Client } from '@aws-sdk/client-s3'
 import { asValue, createContainer } from 'awilix'
 
 import { modulesRegistrations } from '~/modules'
@@ -7,10 +8,12 @@ import { utilsRegistrations } from '~/utils'
 
 const container = createContainer({ injectionMode: 'CLASSIC' })
 
-const client = new GlacierClient({ region: 'sa-east-1' })
+const glacierClient = new GlacierClient({ region: 'sa-east-1' })
+const s3Client = new S3Client({ region: 'sa-east-1' })
 
 container.register({
-  client: asValue(client),
+  glacierClient: asValue(glacierClient),
+  s3Client: asValue(s3Client),
 
   ...modulesRegistrations,
 

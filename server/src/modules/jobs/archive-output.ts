@@ -15,7 +15,7 @@ export interface ArchiveOutputJobParams {
 export type ArchiveOutputJobModule = Module<ArchiveOutputJobParams, Readable>
 
 export function instantiateArchiveOutputJobModule(
-  client: GlacierClient
+  glacierClient: GlacierClient
 ): ArchiveOutputJobModule {
   return {
     async execute({ vault, job }) {
@@ -29,7 +29,7 @@ export function instantiateArchiveOutputJobModule(
         jobId: job.id
       })
 
-      const response = await client.send(command)
+      const response = await glacierClient.send(command)
 
       return response.body
     }

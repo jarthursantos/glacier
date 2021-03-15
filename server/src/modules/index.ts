@@ -14,12 +14,16 @@ import { instantiateCompleteMultipartsUploadModule } from './multiparts/complete
 import { instantiateInitiateMultipartsUploadModule } from './multiparts/initiate'
 import { instantiateListMultipartsUploadsModule } from './multiparts/list'
 import { instantiateUploadMultipartsModule } from './multiparts/upload'
+import { instantiateDownloadS3ObjectsModule } from './s3/download'
 import { instantiateCreateVaultModule } from './vaults/create'
 import { instantiateDeleteVaultModule } from './vaults/delete'
 import { instantiateFindVaultModule } from './vaults/find'
 import { instantiateListVaultsModule } from './vaults/list'
 
 export const modulesRegistrations: NameAndRegistrationPair<any> = {
+  // S3
+  downloadS3ObjectsModule: asFunction(instantiateDownloadS3ObjectsModule),
+
   // Archives
   deleteArchiveModule: asFunction(instantiateDeleteArchiveModule),
   uploadArchiveModule: asFunction(instantiateUploadArchiveModule),

@@ -12,7 +12,7 @@ export interface DeleteArchiveParams {
 export type DeleteArchiveModule = Module<DeleteArchiveParams>
 
 export function instantiateDeleteArchiveModule(
-  client: GlacierClient
+  glacierClient: GlacierClient
 ): DeleteArchiveModule {
   return {
     async execute({ vault, archiveId }) {
@@ -22,7 +22,7 @@ export function instantiateDeleteArchiveModule(
         archiveId
       })
 
-      await client.send(command)
+      await glacierClient.send(command)
     }
   }
 }

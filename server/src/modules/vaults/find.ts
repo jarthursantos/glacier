@@ -12,7 +12,7 @@ export interface FindVaultParams {
 export type FindVaultModule = Module<FindVaultParams, Vault | undefined>
 
 export function instantiateFindVaultModule(
-  client: GlacierClient,
+  glacierClient: GlacierClient,
   dateParser: DateParser
 ): FindVaultModule {
   return {
@@ -23,7 +23,7 @@ export function instantiateFindVaultModule(
       })
 
       try {
-        const result = await client.send(command)
+        const result = await glacierClient.send(command)
 
         if (result.$metadata.httpStatusCode === 404) {
           return undefined

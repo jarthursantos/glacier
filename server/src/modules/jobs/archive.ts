@@ -16,7 +16,7 @@ export interface ArchiveJobParams {
 export type ArchiveJobModule = Module<ArchiveJobParams, string>
 
 export function instantiateArchiveJobModule(
-  client: GlacierClient
+  glacierClient: GlacierClient
 ): ArchiveJobModule {
   return {
     async execute({ vault, description, archiveId, tier }) {
@@ -47,7 +47,7 @@ export function instantiateArchiveJobModule(
         }
       })
 
-      const { jobId } = await client.send(command)
+      const { jobId } = await glacierClient.send(command)
 
       if (!jobId) {
         throw new CreateJobError()
