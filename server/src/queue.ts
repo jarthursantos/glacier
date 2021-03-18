@@ -1,6 +1,6 @@
-import '~/configs'
-import '~/container'
+import '~/core/configs'
+import '~/core/container'
 
-import { processQueue } from '~/libs/Queue'
+import { processQueues } from '~/apps/queue/process'
 
-processQueue()
+processQueues()

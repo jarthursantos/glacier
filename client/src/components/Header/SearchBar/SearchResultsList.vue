@@ -1,8 +1,11 @@
 <template>
-  <perfect-scrollbar @ps-y-reach-end="onScroll" ref="scrollbar">
+  <perfect-scrollbar @ps-y-reach-end="onScrollReachEnd" ref="scrollbar">
     <ul>
-      <li v-for="result, index in results" :key="result.id">
-        <button class="recent-result-item__container" @click="itemClick(result, index)" >
+      <li v-for="(result, index) in results" :key="result.id">
+        <button
+          class="recent-result-item__container"
+          @click="itemClick(result, index)"
+        >
           <div class="recent-result-item__client-line">
             <div class="field name">
               <strong>Nome</strong>
@@ -13,27 +16,27 @@
               <strong>CPF</strong>
               <div>{{ result.cpf }}</div>
             </div>
-            
+
             <div class="field">
               <strong>Status</strong>
-              <div>{{ result.proposal.status }}</div>
+              <div>{{ result.status }}</div>
             </div>
           </div>
-          
+
           <div class="recent-result-item__proposal-line">
             <div class="field">
-              <strong>Cliente</strong>
-              <div>{{ result.contract.client }}</div>
+              <strong>Entidade</strong>
+              <div>{{ result.entity }}</div>
             </div>
 
             <div class="field">
-              <strong>Nº Contrato</strong>
-              <div>{{ result.contract.number }}</div>
+              <strong>Matricula</strong>
+              <div>{{ result.contract }}</div>
             </div>
 
             <div class="field">
               <strong>Nº Proposta</strong>
-              <div>{{ result.proposal.number }}</div>
+              <div>{{ result.proposal }}</div>
             </div>
 
             <div class="field">
@@ -45,37 +48,46 @@
       </li>
     </ul>
 
-    <div class="recent-result-item__loading-container">
+    <div v-if="isLoading" class="recent-result-item__loading-container">
       <LoadingIndicator />
     </div>
   </perfect-scrollbar>
 </template>
 
 <script>
-import LoadingIndicator from '../../LoadingIndicator'
+import LoadingIndicator from "../../LoadingIndicator";
 
 export default {
   components: {
-    LoadingIndicator
+    LoadingIndicator,
   },
 
   props: {
     results: Array,
+    haveMoreResults: Boolean,
+    isLoading: Boolean,
     itemClick: {
       type: Function,
       default: (item, index) => {
-        console.log(item, index)
-      }
-    }
+        console.log(item, index);
+      },
+    },
+    loadNextPage: {
+      type: Function,
+      default: () => {},
+    },
   },
 
   methods: {
-    onScroll(event) {
-      console.log(event);
+    onScrollReachEnd() { // event
+      if (!this.haveMoreResults) return;
+
+      this.loadNextPage();
+
       // this.$refs.scrollbar.ps.update()
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style scoped>

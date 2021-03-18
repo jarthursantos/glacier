@@ -29,6 +29,7 @@ module.exports = {
         alphabetize: { order: 'asc', ignoreCase: true }
       }
     ],
+    camelcase: 'off',
     'prettier/prettier': 'error',
     'space-before-function-paren': 'off',
     '@typescript-eslint/no-explicit-any': 'off',

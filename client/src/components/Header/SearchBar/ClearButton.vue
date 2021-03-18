@@ -1,5 +1,5 @@
 <template>
-  <button tabindex="-1" @click="click">
+  <button tabindex="-1" :class="{ loading }" @click="click">
     <i class="ms-Icon ms-Icon--Clear" aria-hidden="true"></i>
   </button>
 </template>
@@ -7,6 +7,10 @@
 <script>
 export default {
   props: {
+    loading: {
+      type: Boolean,
+      default: false
+    },
     click: {
       type: Function,
       default: () => {}
@@ -29,6 +33,11 @@ button {
   height: 32px;
   width: 32px;
   margin-right: 4px;
+  transition: all 0.2s ease-in-out;
+}
+
+button.loading {
+  right: 32px;
 }
 
 button > svg {
