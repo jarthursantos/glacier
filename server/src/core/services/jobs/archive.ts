@@ -1,7 +1,7 @@
 import { GlacierJob } from '~/core/domain/GlacierJob'
 import { Tiers } from '~/core/domain/Tiers'
 import { Vault } from '~/core/domain/Vault'
-import { ArchiveJobModule } from '~/core/modules/jobs/archive'
+import { GlacierArchiveJobModule } from '~/core/modules/glacier-jobs/archive'
 import { Service } from '~/core/services'
 import { ExtractVaultFromParams } from '~/core/utils/params/extract-vault'
 
@@ -18,14 +18,14 @@ export type ArchiveJobService = Service<ArchiveJobParams, GlacierJob>
 
 export function instantiateArchiveJobService(
   extractVaultFromParams: ExtractVaultFromParams,
-  archiveJobModule: ArchiveJobModule,
+  glacierArchiveJobModule: GlacierArchiveJobModule,
   findJobService: FindJobService
 ): ArchiveJobService {
   return {
     async execute(params) {
       const vault = await extractVaultFromParams.extract(params)
 
-      const jobId = await archiveJobModule.execute({ ...params, vault })
+      const jobId = await glacierArchiveJobModule.execute({ ...params, vault })
 
       const job = await findJobService.execute({ vault, jobId })
 

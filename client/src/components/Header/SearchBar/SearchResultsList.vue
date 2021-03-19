@@ -55,7 +55,7 @@
 </template>
 
 <script>
-import LoadingIndicator from "../../LoadingIndicator";
+import LoadingIndicator from '@/components/LoadingIndicator';
 
 export default {
   components: {

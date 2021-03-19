@@ -1,6 +1,6 @@
 import { GlacierJob } from '~/core/domain/GlacierJob'
 import { Vault } from '~/core/domain/Vault'
-import { InventoryJobModule } from '~/core/modules/jobs/inventory'
+import { GlacierInventoryJobModule } from '~/core/modules/glacier-jobs/inventory'
 import { Service } from '~/core/services'
 import { ExtractVaultFromParams } from '~/core/utils/params/extract-vault'
 
@@ -17,14 +17,17 @@ export type InventoryJobService = Service<InventoryJobParams, GlacierJob>
 
 export function instantiateInventoryJobService(
   extractVaultFromParams: ExtractVaultFromParams,
-  inventoryJobModule: InventoryJobModule,
+  glacierInventoryJobModule: GlacierInventoryJobModule,
   findJobService: FindJobService
 ): InventoryJobService {
   return {
     async execute(params) {
       const vault = await extractVaultFromParams.extract(params)
 
-      const jobId = await inventoryJobModule.execute({ ...params, vault })
+      const jobId = await glacierInventoryJobModule.execute({
+        ...params,
+        vault
+      })
 
       const job = await findJobService.execute({ vault, jobId })
 

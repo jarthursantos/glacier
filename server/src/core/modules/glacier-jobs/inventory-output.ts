@@ -7,19 +7,19 @@ import { Vault } from '~/core/domain/Vault'
 import { NonCompletedJobError } from '~/core/errors/jobs/NonCompletedJob'
 import { Module } from '~/core/modules'
 
-export interface InventoryOutputJobParams {
+export interface GlacierInventoryOutputJobParams {
   vault: Vault
   job: InventoryRetrievalGlacierJob
 }
 
-export type InventoryOutputJobModule = Module<
-  InventoryOutputJobParams,
+export type GlacierInventoryOutputJobModule = Module<
+  GlacierInventoryOutputJobParams,
   Readable
 >
 
-export function instantiateInventoryOutputJobModule(
+export function instantiateGlacierInventoryOutputJobModule(
   glacierClient: GlacierClient
-): InventoryOutputJobModule {
+): GlacierInventoryOutputJobModule {
   return {
     async execute({ vault, job }) {
       if (!job.completed) {

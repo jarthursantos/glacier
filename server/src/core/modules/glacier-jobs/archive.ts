@@ -6,18 +6,18 @@ import { Vault } from '~/core/domain/Vault'
 import { CreateJobError } from '~/core/errors/jobs/CreateJob'
 import { Module } from '~/core/modules'
 
-export interface ArchiveJobParams {
+export interface GlacierArchiveJobParams {
   vault: Vault
   archiveId: string
   tier?: Tiers
   description?: string
 }
 
-export type ArchiveJobModule = Module<ArchiveJobParams, string>
+export type GlacierArchiveJobModule = Module<GlacierArchiveJobParams, string>
 
-export function instantiateArchiveJobModule(
+export function instantiateGlacierArchiveJobModule(
   glacierClient: GlacierClient
-): ArchiveJobModule {
+): GlacierArchiveJobModule {
   return {
     async execute({ vault, description, archiveId, tier }) {
       let jobTier: string

@@ -1,17 +1,16 @@
 import { Driver } from 'neo4j-driver'
 
 import { Contract } from '~/core/domain/Contract'
+import { Module } from '~/core/modules'
 import { formatCreateContractQuery } from '~/core/queries'
 
-export interface ContractsRepository {
-  register(contract: Contract): Promise<void>
-}
+export type CreateContractModule = Module<Contract>
 
-export function instantiateContractsRepository(
+export function instantiateCreateContractModule(
   neo4jClient: Driver
-): ContractsRepository {
+): CreateContractModule {
   return {
-    async register(contract) {
+    async execute(contract: Contract) {
       const session = neo4jClient.session()
 
       await session.run(formatCreateContractQuery(contract))

@@ -13,7 +13,7 @@ import Item from './Item'
 export default {
   components: {
     Grid,
-    Item
+    Item,
   }
 }
 </script>

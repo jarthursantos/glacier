@@ -2,14 +2,13 @@ import { asFunction, NameAndRegistrationPair } from 'awilix'
 
 import { instantiateDeleteArchiveModule } from './archives/delete'
 import { instantiateUploadArchiveModule } from './archives/upload'
-import { instantiateSearchDocumentsModule } from './documents/search'
-import { instantiateArchiveJobModule } from './jobs/archive'
-import { instantiateArchiveOutputJobModule } from './jobs/archive-output'
-import { instantiateFindJobModule } from './jobs/find'
-import { instantiateInventoryJobModule } from './jobs/inventory'
-import { instantiateInventoryOutputJobModule } from './jobs/inventory-output'
-import { instantiateListJobsModule } from './jobs/list'
-import { instantiateSelectJobModule } from './jobs/select'
+import { instantiateSearchDocumentsModule } from './contracts/search'
+import { instantiateGlacierArchiveJobModule } from './glacier-jobs/archive'
+import { instantiateGlacierArchiveOutputJobModule } from './glacier-jobs/archive-output'
+import { instantiateGlacierFindJobModule } from './glacier-jobs/find'
+import { instantiateGlacierInventoryJobModule } from './glacier-jobs/inventory'
+import { instantiateGlacierInventoryOutputJobModule } from './glacier-jobs/inventory-output'
+import { instantiateGlacierListJobsModule } from './glacier-jobs/list'
 import { instantiateAbortMultipartsUploadModule } from './multiparts/abort'
 import { instantiateCompleteMultipartsUploadModule } from './multiparts/complete'
 import { instantiateInitiateMultipartsUploadModule } from './multiparts/initiate'
@@ -35,13 +34,16 @@ export const modulesRegistrations: NameAndRegistrationPair<any> = {
   uploadArchiveModule: asFunction(instantiateUploadArchiveModule),
 
   // Jobs
-  archiveJobModule: asFunction(instantiateArchiveJobModule),
-  findJobModule: asFunction(instantiateFindJobModule),
-  inventoryJobModule: asFunction(instantiateInventoryJobModule),
-  inventoryOutputJobModule: asFunction(instantiateInventoryOutputJobModule),
-  listJobsModule: asFunction(instantiateListJobsModule),
-  archiveOutputJobModule: asFunction(instantiateArchiveOutputJobModule),
-  selectJobModule: asFunction(instantiateSelectJobModule),
+  glacierArchiveJobModule: asFunction(instantiateGlacierArchiveJobModule),
+  glacierFindJobModule: asFunction(instantiateGlacierFindJobModule),
+  glacierInventoryJobModule: asFunction(instantiateGlacierInventoryJobModule),
+  glacierInventoryOutputJobModule: asFunction(
+    instantiateGlacierInventoryOutputJobModule
+  ),
+  glacierListJobsModule: asFunction(instantiateGlacierListJobsModule),
+  glacierArchiveOutputJobModule: asFunction(
+    instantiateGlacierArchiveOutputJobModule
+  ),
 
   // Multiparts
   abortMultipartsUploadModule: asFunction(

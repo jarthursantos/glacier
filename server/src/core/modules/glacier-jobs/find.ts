@@ -2,25 +2,28 @@ import { GlacierClient, DescribeJobCommand } from '@aws-sdk/client-glacier'
 
 import { ACCOUNT_ID } from '~/core/configs/aws'
 import { GlacierJob, BaseGlacierJob } from '~/core/domain/GlacierJob'
-import { JobActions } from '~/core/domain/JobActions'
-import { JobStatus } from '~/core/domain/JobStatus'
+import { GlacierJobActions } from '~/core/domain/GlacierJobActions'
+import { GlacierJobStatus } from '~/core/domain/GlacierJobStatus'
 import { Tiers } from '~/core/domain/Tiers'
 import { Vault } from '~/core/domain/Vault'
 import { InvalidJobStatusError } from '~/core/errors/jobs/InvalidJobStatus'
 import { Module } from '~/core/modules'
 import { DateParser } from '~/core/utils/date/parse'
 
-export interface FindJobParams {
+export interface GlacierFindJobParams {
   vault: Vault
   jobId: string
 }
 
-export type FindJobModule = Module<FindJobParams, GlacierJob | undefined>
+export type GlacierFindJobModule = Module<
+  GlacierFindJobParams,
+  GlacierJob | undefined
+>
 
-export function instantiateFindJobModule(
+export function instantiateGlacierFindJobModule(
   glacierClient: GlacierClient,
   dateParser: DateParser
-): FindJobModule {
+): GlacierFindJobModule {
   return {
     async execute({ vault, jobId }) {
       const command = new DescribeJobCommand({
@@ -37,17 +40,17 @@ export function instantiateFindJobModule(
 
       let job: GlacierJob | undefined
 
-      let status: JobStatus
+      let status: GlacierJobStatus
 
       switch (response.StatusCode) {
         case 'Succeeded':
-          status = JobStatus.SUCCEEDED
+          status = GlacierJobStatus.SUCCEEDED
           break
         case 'Failed':
-          status = JobStatus.FAILED
+          status = GlacierJobStatus.FAILED
           break
         case 'InProgress':
-          status = JobStatus.IN_PROGRESS
+          status = GlacierJobStatus.IN_PROGRESS
           break
         default:
           throw new InvalidJobStatusError()
@@ -71,7 +74,7 @@ export function instantiateFindJobModule(
 
       switch (response.Action) {
         case 'Select':
-          job = { ...baseJob, action: JobActions.SELECT }
+          job = { ...baseJob, action: GlacierJobActions.SELECT }
           break
         case 'ArchiveRetrieval':
           let tier: Tiers | undefined
@@ -84,7 +87,7 @@ export function instantiateFindJobModule(
 
           job = {
             ...baseJob,
-            action: JobActions.ARCHIVE_RETRIEVAL,
+            action: GlacierJobActions.ARCHIVE_RETRIEVAL,
             archiveId: response.ArchiveId || '',
             tier
           }
@@ -92,7 +95,7 @@ export function instantiateFindJobModule(
         case 'InventoryRetrieval':
           job = {
             ...baseJob,
-            action: JobActions.INVENTORY_RETRIEVAL,
+            action: GlacierJobActions.INVENTORY_RETRIEVAL,
             inventorySizeInBytes: response.InventorySizeInBytes
           }
           break

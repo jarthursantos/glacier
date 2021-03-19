@@ -2,20 +2,20 @@ import { GlacierClient, ListJobsCommand } from '@aws-sdk/client-glacier'
 
 import { ACCOUNT_ID } from '~/core/configs/aws'
 import { GlacierJob, BaseGlacierJob } from '~/core/domain/GlacierJob'
-import { JobActions } from '~/core/domain/JobActions'
-import { JobStatus } from '~/core/domain/JobStatus'
+import { GlacierJobActions } from '~/core/domain/GlacierJobActions'
+import { GlacierJobStatus } from '~/core/domain/GlacierJobStatus'
 import { Tiers } from '~/core/domain/Tiers'
 import { Vault } from '~/core/domain/Vault'
 import { InvalidJobStatusError } from '~/core/errors/jobs/InvalidJobStatus'
 import { Module } from '~/core/modules'
 import { DateParser } from '~/core/utils/date/parse'
 
-export type ListJobsModule = Module<Vault, GlacierJob[]>
+export type GlacierListJobsModule = Module<Vault, GlacierJob[]>
 
-export function instantiateListJobsModule(
+export function instantiateGlacierListJobsModule(
   glacierClient: GlacierClient,
   dateParser: DateParser
-): ListJobsModule {
+): GlacierListJobsModule {
   return {
     async execute(vault) {
       const command = new ListJobsCommand({
@@ -28,17 +28,17 @@ export function instantiateListJobsModule(
       const jobs: GlacierJob[] = []
 
       response.JobList?.forEach(currentJob => {
-        let status: JobStatus
+        let status: GlacierJobStatus
 
         switch (currentJob.StatusCode) {
           case 'Succeeded':
-            status = JobStatus.SUCCEEDED
+            status = GlacierJobStatus.SUCCEEDED
             break
           case 'Failed':
-            status = JobStatus.FAILED
+            status = GlacierJobStatus.FAILED
             break
           case 'InProgress':
-            status = JobStatus.IN_PROGRESS
+            status = GlacierJobStatus.IN_PROGRESS
             break
           default:
             throw new InvalidJobStatusError()
@@ -62,7 +62,7 @@ export function instantiateListJobsModule(
 
         switch (currentJob.Action) {
           case 'Select':
-            jobs.push({ ...baseJob, action: JobActions.SELECT })
+            jobs.push({ ...baseJob, action: GlacierJobActions.SELECT })
             break
           case 'ArchiveRetrieval':
             let tier: Tiers | undefined
@@ -75,7 +75,7 @@ export function instantiateListJobsModule(
 
             jobs.push({
               ...baseJob,
-              action: JobActions.ARCHIVE_RETRIEVAL,
+              action: GlacierJobActions.ARCHIVE_RETRIEVAL,
               archiveId: currentJob.ArchiveId || '',
               tier
             })
@@ -83,7 +83,7 @@ export function instantiateListJobsModule(
           case 'InventoryRetrieval':
             jobs.push({
               ...baseJob,
-              action: JobActions.INVENTORY_RETRIEVAL,
+              action: GlacierJobActions.INVENTORY_RETRIEVAL,
               inventorySizeInBytes: currentJob.InventorySizeInBytes
             })
             break

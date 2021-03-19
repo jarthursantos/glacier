@@ -11,10 +11,21 @@
           <small>704.751.094-06</small>
         </div>
       </div>
+        
+      <div class="item__header-time">
+        <i class="ms-Icon ms-Icon--Clock" aria-hidden="true"></i>
+        <small>{{ elapsedTime }}</small>
+      </div>
 
       <div class="item__actions">
         <button class="item__actions-show-more">
-          Ver detalhes
+          <!-- <i class="ms-Icon ms-Icon--Info" aria-hidden="true"></i> -->
+          <span>Ver detalhes</span>
+        </button>
+
+        <button class="item__actions-show-more">
+          <i class="ms-Icon ms-Icon--Download" aria-hidden="true"></i>
+          <span>Baixar</span>
         </button>
       </div>
     </div>
@@ -22,11 +33,30 @@
 </template>
 
 <script>
-import Card from '../../Card'
+import { formatDistanceToNow, format, isSameDay, subDays } from 'date-fns'
+import ptBR from 'date-fns/locale/pt-BR'
+import Card from '@/components/Card'
 
 export default {
   components: {
     Card
+  },
+
+  props: {
+    requestedAt: {
+      type: Date,
+      default: subDays(new Date(), 0)
+    }
+  },
+
+  computed: {
+    elapsedTime() {
+      if (isSameDay(new Date(), this.requestedAt)) {
+        return formatDistanceToNow(this.requestedAt, { addSuffix: true, locale: ptBR })
+      }
+
+      return format(this.requestedAt, 'dd/MM/yyyy')
+    }
   }
 };
 </script>
@@ -41,7 +71,7 @@ export default {
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 24px 0 16px;
+  padding: 24px 0 8px;
 }
 
 .item__header > .item__header-icon {
@@ -76,6 +106,16 @@ export default {
   text-overflow: ellipsis;
 }
 
+.item__header-time {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.item__header-time > * + * {
+  margin-left: 4px;
+}
+
 .item__actions {
   display: flex;
   flex-direction: row;
@@ -83,17 +123,30 @@ export default {
   justify-content: flex-end;
 
   padding: 12px 0;
+  margin-top: 8px;
   border-top: 1px solid #edebe9;
 }
 
+.item__actions > * + * {
+  margin-left: 16px;
+}
+
 .item__actions-show-more {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
   background: none;
   border: 1px solid;
   border-color: #fff;
-  line-height: 16px;
   font-size: 12px;
   border-radius: 2px;
   color: #0078D4;
+}
+
+.item__actions-show-more > i {
+  font-size: 14px;
+  margin-right: 4px;
 }
 
 .item__actions-show-more:focus-visible,

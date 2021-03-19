@@ -7,16 +7,19 @@ import { Vault } from '~/core/domain/Vault'
 import { NonCompletedJobError } from '~/core/errors/jobs/NonCompletedJob'
 import { Module } from '~/core/modules'
 
-export interface ArchiveOutputJobParams {
+export interface GlacierArchiveOutputJobParams {
   vault: Vault
   job: ArchiveRetrievalGlacierJob
 }
 
-export type ArchiveOutputJobModule = Module<ArchiveOutputJobParams, Readable>
+export type GlacierArchiveOutputJobModule = Module<
+  GlacierArchiveOutputJobParams,
+  Readable
+>
 
-export function instantiateArchiveOutputJobModule(
+export function instantiateGlacierArchiveOutputJobModule(
   glacierClient: GlacierClient
-): ArchiveOutputJobModule {
+): GlacierArchiveOutputJobModule {
   return {
     async execute({ vault, job }) {
       if (!job.completed) {

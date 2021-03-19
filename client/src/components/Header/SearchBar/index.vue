@@ -192,7 +192,7 @@ export default {
     },
 
     resultItemClick(item, index) {
-      console.log({ item, index });
+      console.log(item, index);
 
       this.closeDialog();
     },

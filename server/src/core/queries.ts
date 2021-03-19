@@ -16,24 +16,18 @@ export function formatCreateContractQuery(contract: Contract) {
   return `CREATE (:Contrato { ${toParams(contract)} })`
 }
 
-export function formatCreateArchiveQuery(archive: Archive, pages: Page[]) {
+export function formatAttachArchiveToCotractQuery(
+  archive: Archive,
+  { matricula }: Pick<Contract, 'matricula'>,
+  pages: Page[]
+) {
   return `
-    CREATE (arquivo:Arquivo { ${toParams(archive)} })
+    MATCH (contrato:Contrato { ${toParams({ matricula })} })
+    CREATE (contrato)-[:POSSUI]->(arquivo:Arquivo { ${toParams(archive)} })
     ${pages
       .map(toParams)
       .map(params => `CREATE (arquivo)<-[:COMPOE]-(:Pagina { ${params} })`)
       .join('\n')}
-  `
-}
-
-export function formatAttachArchiveToCotractQuery(
-  { id_glacier }: Pick<Archive, 'id_glacier'>,
-  { matricula }: Pick<Contract, 'matricula'>
-) {
-  return `
-    MATCH (contrato:Contrato { ${toParams({ matricula })} })
-    MATCH (arquivo:Arquivo { ${toParams({ id_glacier })} })
-    CREATE (contrato)-[:POSSUI]->(arquivo)
   `
 }
 
@@ -52,21 +46,21 @@ export function formatFindContractArchivesQuery({ matricula }: Pick<Contract, 'm
 export function formatCreateRetrieveJobQuery({ id_glacier }: Pick<Archive, 'id_glacier'>) {
   return `
     MATCH (arquivo :Arquivo { ${toParams({ id_glacier })} })
-    CREATE (:Trabalho { status: "Pendente" })-[:EXTRAI]->(arquivo)
+    CREATE (:Trabalho { status: "Pendente", solicitado_em: datetime() })-[:EXTRAI]->(arquivo)
   `
 }
 
 export function formatCompleteRetrieveJobQuery({ id_glacier }: Pick<Archive, 'id_glacier'>) {
   return `
     MATCH (trabalho:Trabalho { status: "Pendente" })-[:EXTRAI]->(:Arquivo { ${toParams({ id_glacier })} })
-    SET trabalho.status = "Concluido"
+    SET trabalho.status = "Concluido", trabalho.concluido_em = datetime()
   `
 }
 
 export function formatExpireRetrieveJobQuery({ id_glacier }: Pick<Archive, 'id_glacier'>) {
   return `
     MATCH (trabalho:Trabalho { status: "Concluido" })-[:EXTRAI]->(:Arquivo { ${toParams({ id_glacier })} })
-    SET trabalho.status = "Expirou"
+    SET trabalho.status = "Expirou", trabalho.expirado_em = datetime()
   `
 }
 

@@ -5,17 +5,17 @@ import path from 'path'
 import { BaseDocument } from '~/core/domain/Document'
 import { EnqueueFunction, registerJob } from '~/core/jobs/register'
 import { UploadArchiveModule } from '~/core/modules/archives/upload'
+// import { CreateContractModule } from '~/core/modules/contracts/create'
 import { DownloadS3ObjectModule } from '~/core/modules/s3/download'
-import { ContractsRepository } from '~/core/repositories/contracts'
 import { FindVaultService } from '~/core/services/vaults/find'
 
 import { extractContract, extractFilename } from './extractors'
 
 export function instanteateEnqueueAccessJob(
+  // createContractModule: CreateContractModule,
   findVaultService: FindVaultService,
   downloadS3ObjectModule: DownloadS3ObjectModule,
-  uploadArchiveModule: UploadArchiveModule,
-  contractsRepository: ContractsRepository
+  uploadArchiveModule: UploadArchiveModule
 ): EnqueueAccessJob {
   return registerJob<AccessJobParams, BaseDocument>({
     name: 'AccessJob',
@@ -40,7 +40,7 @@ export function instanteateEnqueueAccessJob(
 
       fs.unlinkSync(outputPath)
 
-      await contractsRepository.register({ contract, archiveId })
+      // await createContractModule.execute({})
 
       return { archiveId, contract }
     }

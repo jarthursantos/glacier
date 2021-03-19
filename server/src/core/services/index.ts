@@ -9,7 +9,6 @@ import { instantiateFindJobService } from './jobs/find'
 import { instantiateInventoryJobService } from './jobs/inventory'
 import { instantiateInventoryOutputJobService } from './jobs/inventory-output'
 import { instantiateListJobsService } from './jobs/list'
-import { instantiateSelectJobService } from './jobs/select'
 import { instantiateAbortMultipartUploadService } from './multiparts/abort'
 import { instantiateCompleteMultipartUploadService } from './multiparts/complete'
 import { instantiateInitiateMultipartUploadService } from './multiparts/initiate'
@@ -35,7 +34,6 @@ export const servicesRegistrations: NameAndRegistrationPair<any> = {
   inventoryOutputJobService: asFunction(instantiateInventoryOutputJobService),
   listJobsService: asFunction(instantiateListJobsService),
   archiveOutputJobService: asFunction(instantiateArchiveOutputJobService),
-  selectJobService: asFunction(instantiateSelectJobService),
 
   // Multiparts
   abortMultipartUploadService: asFunction(

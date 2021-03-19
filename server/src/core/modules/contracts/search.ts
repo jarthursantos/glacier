@@ -24,8 +24,7 @@ export function instantiateSearchDocumentsModule(): SearchDocumentsModule {
         status: 'Cancelada',
         contract: 'ABEV00001337',
         entity: 'ABEV',
-        operator:
-          'Santa Barbara do Oeste / Americana (SP) Santa Barbara do Oeste / Americana (SP)',
+        operator: 'Santa Barbara do Oeste / Americana (SP)',
         archiveId: ''
       })
 

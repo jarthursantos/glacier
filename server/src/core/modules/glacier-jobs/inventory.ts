@@ -6,19 +6,22 @@ import { CreateJobError } from '~/core/errors/jobs/CreateJob'
 import { Module } from '~/core/modules'
 import { DateParser } from '~/core/utils/date/parse'
 
-export interface InventoryJobParams {
+export interface GlacierInventoryJobParams {
   vault: Vault
   periodStart?: Date
   periodEnd?: Date
   description?: string
 }
 
-export type InventoryJobModule = Module<InventoryJobParams, string>
+export type GlacierInventoryJobModule = Module<
+  GlacierInventoryJobParams,
+  string
+>
 
-export function instantiateInventoryJobModule(
+export function instantiateGlacierInventoryJobModule(
   glacierClient: GlacierClient,
   dateParser: DateParser
-): InventoryJobModule {
+): GlacierInventoryJobModule {
   return {
     async execute({ vault, description, periodStart, periodEnd }) {
       const command = new InitiateJobCommand({

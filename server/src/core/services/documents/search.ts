@@ -1,7 +1,7 @@
 import { Document } from '~/core/domain/Document'
 import { PaginationResult } from '~/core/domain/PaginationResult'
 import { PaginationParamsError } from '~/core/errors/pagination/PaginationParams'
-import { SearchDocumentsModule } from '~/core/modules/documents/search'
+import { SearchDocumentsModule } from '~/core/modules/contracts/search'
 import { Service } from '~/core/services'
 
 export interface SearchDocumentsParams {
