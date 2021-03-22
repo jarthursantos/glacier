@@ -4,7 +4,6 @@ import { asValue, createContainer } from 'awilix'
 import Neo4j from 'neo4j-driver'
 
 import { URL, PASSWORD, USERNAME } from '~/core/configs/neo4j'
-import { queueJobsRegistrations } from '~/core/jobs'
 import { modulesRegistrations } from '~/core/modules'
 import { servicesRegistrations } from '~/core/services'
 import { utilsRegistrations } from '~/core/utils'
@@ -21,7 +20,6 @@ container.register({
   neo4jClient: asValue(neo4jClient),
 
   ...modulesRegistrations,
-  ...queueJobsRegistrations,
   ...servicesRegistrations,
   ...utilsRegistrations
 })

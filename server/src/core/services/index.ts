@@ -1,58 +1,78 @@
 import { asFunction, NameAndRegistrationPair } from 'awilix'
 
-import { instantiateDeleteArchiveService } from './archives/delete'
-import { instantiateUploadArchiveService } from './archives/upload'
-import { instantiateSearchDocumentsService } from './documents/search'
-import { instantiateArchiveJobService } from './jobs/archive'
-import { instantiateArchiveOutputJobService } from './jobs/archive-output'
-import { instantiateFindJobService } from './jobs/find'
-import { instantiateInventoryJobService } from './jobs/inventory'
-import { instantiateInventoryOutputJobService } from './jobs/inventory-output'
-import { instantiateListJobsService } from './jobs/list'
-import { instantiateAbortMultipartUploadService } from './multiparts/abort'
-import { instantiateCompleteMultipartUploadService } from './multiparts/complete'
-import { instantiateInitiateMultipartUploadService } from './multiparts/initiate'
-import { instantiateListMultipartUploadService } from './multiparts/list'
-import { instantiateUploadMultipartService } from './multiparts/upload'
-import { instantiateCreateVaultService } from './vaults/create'
-import { instantiateDeleteVaultService } from './vaults/delete'
-import { instantiateFindVaultService } from './vaults/find'
-import { instantiateListVaultsService } from './vaults/list'
+import { instantiateCreateRetrievalContractService } from './contracts/retrieval'
+import { instantiateDeleteGlacierArchiveService } from './glacier/archives/delete'
+import { instantiateUploadGlacierArchiveService } from './glacier/archives/upload'
+import { instantiateGlacierArchiveJobService } from './glacier/jobs/archive'
+import { instantiateGlacierArchiveOutputJobService } from './glacier/jobs/archive-output'
+import { instantiateFindGlacierJobService } from './glacier/jobs/find'
+import { instantiateGlacierInventoryJobService } from './glacier/jobs/inventory'
+import { instantiateGlacierInventoryOutputJobService } from './glacier/jobs/inventory-output'
+import { instantiateListGlacierJobsService } from './glacier/jobs/list'
+import { instantiateAbortGlacierMultipartUploadService } from './glacier/multiparts/abort'
+import { instantiateCompleteGlacierMultipartUploadService } from './glacier/multiparts/complete'
+import { instantiateInitiateGlacierMultipartUploadService } from './glacier/multiparts/initiate'
+import { instantiateListGlacierMultipartUploadService } from './glacier/multiparts/list'
+import { instantiateUploadGlacierMultipartService } from './glacier/multiparts/upload'
+import { instantiateCreateGlacierVaultService } from './glacier/vaults/create'
+import { instantiateDeleteGlacierVaultService } from './glacier/vaults/delete'
+import { instantiateFindGlacierVaultService } from './glacier/vaults/find'
+import { instantiateListGlacierVaultsService } from './glacier/vaults/list'
+import { instantiateImportAccessService } from './import/access'
+import { instantiateImportMetaService } from './import/meta'
 
 export const servicesRegistrations: NameAndRegistrationPair<any> = {
   // Archives
-  deleteArchiveService: asFunction(instantiateDeleteArchiveService),
-  uploadArchiveService: asFunction(instantiateUploadArchiveService),
+  deleteGlacierArchiveService: asFunction(
+    instantiateDeleteGlacierArchiveService
+  ),
+  uploadGlacierArchiveService: asFunction(
+    instantiateUploadGlacierArchiveService
+  ),
 
-  // Documents
-  searchDocumentsService: asFunction(instantiateSearchDocumentsService),
+  // Contracts
+  createRetrievalContractService: asFunction(
+    instantiateCreateRetrievalContractService
+  ),
+
+  // Import
+  importAccessService: asFunction(instantiateImportAccessService),
+  importMetaService: asFunction(instantiateImportMetaService),
 
   // Jobs
-  archiveJobService: asFunction(instantiateArchiveJobService),
-  findJobService: asFunction(instantiateFindJobService),
-  inventoryJobService: asFunction(instantiateInventoryJobService),
-  inventoryOutputJobService: asFunction(instantiateInventoryOutputJobService),
-  listJobsService: asFunction(instantiateListJobsService),
-  archiveOutputJobService: asFunction(instantiateArchiveOutputJobService),
+  glacierArchiveJobService: asFunction(instantiateGlacierArchiveJobService),
+  findGlacierJobService: asFunction(instantiateFindGlacierJobService),
+  glacierInventoryJobService: asFunction(instantiateGlacierInventoryJobService),
+  glacierInventoryOutputJobService: asFunction(
+    instantiateGlacierInventoryOutputJobService
+  ),
+  listGlacierJobsService: asFunction(instantiateListGlacierJobsService),
+  glacierArchiveOutputJobService: asFunction(
+    instantiateGlacierArchiveOutputJobService
+  ),
 
   // Multiparts
-  abortMultipartUploadService: asFunction(
-    instantiateAbortMultipartUploadService
+  abortGlacierMultipartUploadService: asFunction(
+    instantiateAbortGlacierMultipartUploadService
   ),
-  completeMultipartUploadService: asFunction(
-    instantiateCompleteMultipartUploadService
+  completeGlacierMultipartUploadService: asFunction(
+    instantiateCompleteGlacierMultipartUploadService
   ),
-  initiateMultipartUploadService: asFunction(
-    instantiateInitiateMultipartUploadService
+  initiateGlacierMultipartUploadService: asFunction(
+    instantiateInitiateGlacierMultipartUploadService
   ),
-  listMultipartUploadService: asFunction(instantiateListMultipartUploadService),
-  uploadMultipartService: asFunction(instantiateUploadMultipartService),
+  listGlacierMultipartUploadService: asFunction(
+    instantiateListGlacierMultipartUploadService
+  ),
+  uploadGlacierMultipartService: asFunction(
+    instantiateUploadGlacierMultipartService
+  ),
 
   // Vaults
-  createVaultService: asFunction(instantiateCreateVaultService),
-  deleteVaultService: asFunction(instantiateDeleteVaultService),
-  findVaultService: asFunction(instantiateFindVaultService),
-  listVaultsService: asFunction(instantiateListVaultsService)
+  createGlacierVaultService: asFunction(instantiateCreateGlacierVaultService),
+  deleteGlacierVaultService: asFunction(instantiateDeleteGlacierVaultService),
+  findGlacierVaultService: asFunction(instantiateFindGlacierVaultService),
+  listGlacierVaultsService: asFunction(instantiateListGlacierVaultsService)
 }
 
 export interface Service<Params = void, Result = void> {

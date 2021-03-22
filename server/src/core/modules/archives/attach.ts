@@ -3,25 +3,25 @@ import { Driver } from 'neo4j-driver'
 import { Archive, Page } from '~/core/domain/Archive'
 import { Contract } from '~/core/domain/Contract'
 import { Module } from '~/core/modules'
-import { formatAttachArchiveToCotractQuery } from '~/core/queries'
+import { queries } from '~/core/queries'
 
-export interface DeleteArchiveParams {
+export interface AttachArchiveParams {
   archive: Archive
   contract: Contract
-  pages: Page[]
+  pages?: Page[]
 }
 
-export type DeleteArchiveModule = Module<DeleteArchiveParams>
+export type AttachArchiveModule = Module<AttachArchiveParams>
 
-export function instantiateDeleteArchiveModule(
+export function instantiateAttachArchiveModule(
   neo4jClient: Driver
-): DeleteArchiveModule {
+): AttachArchiveModule {
   return {
-    async execute({ archive, contract, pages }) {
+    async execute({ archive, contract, pages = [] }) {
       const session = neo4jClient.session()
 
       await session.run(
-        formatAttachArchiveToCotractQuery(archive, contract, pages)
+        queries.contract.attachArchive(archive, contract, pages)
       )
 
       await session.close()

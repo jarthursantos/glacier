@@ -1,14 +1,11 @@
 <template>
   <div class="wrapper">
     <div class="content">
-      <Separator label="Recém Acessados" />
-      <Recents />
-
       <Separator label="Solicitações Pendentes" />
       <Pending />
       
       <Separator label="Solicitações Concluidas" />
-      <Pending />
+      <Completed />
     </div>
   </div>
 </template>
@@ -16,13 +13,13 @@
 <script>
 import Separator from './Separator'
 import Pending from './Pending'
-import Recents from './Recents'
+import Completed from './Completed'
 
 export default {
   components: {
     Separator,
     Pending,
-    Recents,
+    Completed,
   }
 }
 </script>

@@ -4,12 +4,11 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev:server": "cross-env DEBUG=glacier:* ts-node-dev -r tsconfig-paths/register --files --respawn src/server.ts",
-    "dev:queue": "cross-env DEBUG=glacier:* ts-node-dev -r tsconfig-paths/register --files --respawn src/queue.ts",
+    "import:access": "node dist/apps/cli/access.js",
+    "server": "cross-env DEBUG=glacier:* ts-node-dev -r tsconfig-paths/register --files --respawn src/server.ts",
     "prebuild": "rimraf dist",
     "build": "babel src --out-dir dist --extensions \".ts,.tsx\" --copy-files --source-maps inline",
-    "start": "node dist/server.js",
-    "test": "jest"
+    "start": "pm2 start ecosystem.config.js"
   },
   "dependencies": {
     "@aws-sdk/client-glacier": "^3.8.0",
@@ -45,6 +44,8 @@
     "@typescript-eslint/eslint-plugin": "^4.17.0",
     "@typescript-eslint/parser": "^4.17.0",
     "babel-loader": "^8.2.2",
+    "babel-plugin-root-import": "^6.6.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
     "cross-env": "^7.0.3",
     "eslint": "^7.21.0",
     "eslint-config-standard": "^16.0.2",

@@ -92,7 +92,6 @@ export default {
       focused: false,
       searchText: "",
       isDialogOpen: false,
-      recentSeachs: ["José Arthur", "Samuel", "Matheus", "João"],
       results: [],
       isLoading: false,
       isLoadingNextPage: false,
@@ -131,6 +130,10 @@ export default {
   },
 
   computed: {
+    recentSeachs() {
+      return this.$store.getters.getRecentSearchs
+    },
+
     haveMoreResults() {
       return ((this.currentPage + 1) * RESULTS_PER_PAGE) < this.totalResults
     },
@@ -194,6 +197,7 @@ export default {
     resultItemClick(item, index) {
       console.log(item, index);
 
+      this.$store.commit('addSearchToRecent', this.searchText)
       this.closeDialog();
     },
 
@@ -203,7 +207,7 @@ export default {
     },
 
     removeSearchItem(_, index) {
-      this.recentSeachs.splice(index, 1);
+      this.$store.commit('removeRecentSearch', index)
       this.$refs.searchInput.focus();
     },
 
@@ -265,7 +269,7 @@ export default {
   position: relative;
   width: 100%;
   opacity: 0.8;
-  max-width: 800px;
+  max-width: 700px;
 }
 
 .searchbar__wrapper:hover,

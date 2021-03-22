@@ -3,7 +3,7 @@ import { Driver } from 'neo4j-driver'
 import { Archive } from '~/core/domain/Archive'
 import { Contract } from '~/core/domain/Contract'
 import { Module } from '~/core/modules'
-import { formatFindContractArchivesQuery } from '~/core/queries'
+import { queries } from '~/core/queries'
 
 export interface FindArchivePerContractParams {
   contract: Contract
@@ -24,7 +24,7 @@ export function instantiateFindArchivePerContractModule(
       const archives: Archive[] = []
 
       const { records } = await session.run(
-        formatFindContractArchivesQuery(contract)
+        queries.archive.findByContract(contract)
       )
 
       records.forEach(record => {

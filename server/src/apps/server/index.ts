@@ -5,8 +5,7 @@ import express, { Request, Response, NextFunction } from 'express'
 import { isHttpError } from 'http-errors'
 
 import { auth } from '~/apps/server/middlewares/auth'
-import { documentsRoutes } from '~/apps/server/routes/documents'
-import { vaultsRoutes } from '~/apps/server/routes/vaults'
+import { contractsRouter } from '~/apps/server/routes/contracts'
 import { isVaultAlreadyExistsError } from '~/core/errors/vault/VaultAlreadyExists'
 
 const app = express()
@@ -16,13 +15,7 @@ app.use(cors())
 
 app.use(auth)
 
-// documents
-app.use('/documentos', documentsRoutes)
-app.use('/documents', documentsRoutes)
-
-// vaults
-app.use('/cofres', vaultsRoutes)
-app.use('/vaults', vaultsRoutes)
+app.use('/contratos', contractsRouter)
 
 app.use(
   async (error: any, _req: Request, res: Response, next: NextFunction) => {

@@ -16,7 +16,8 @@ export function instantiateListS3ObjectsModule(
     async execute({ bucket, folderPath }) {
       const command = new ListObjectsCommand({
         Bucket: bucket,
-        Prefix: folderPath
+        Prefix: folderPath,
+        Delimiter: '/'
       })
 
       const response = await s3Client.send(command)

@@ -1,11 +1,11 @@
 import { Driver } from 'neo4j-driver'
 
-import { Archive } from '~/core/domain/Archive'
+import { Job } from '~/core/domain/Job'
 import { Module } from '~/core/modules'
-import { formatCompleteRetrieveJobQuery } from '~/core/queries'
+import { queries } from '~/core/queries'
 
 export interface FinishJobParams {
-  archive: Archive
+  job: Job
 }
 
 export type FinishJobModule = Module<FinishJobParams>
@@ -14,10 +14,10 @@ export function instantiateFinishJobModule(
   neo4jClient: Driver
 ): FinishJobModule {
   return {
-    async execute({ archive }) {
+    async execute({ job }) {
       const session = neo4jClient.session()
 
-      await session.run(formatCompleteRetrieveJobQuery(archive))
+      await session.run(queries.jobs.complete(job))
 
       await session.close()
     }

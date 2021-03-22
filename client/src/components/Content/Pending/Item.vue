@@ -2,9 +2,9 @@
   <Card>
     <div class="item__container">
       <div class="item__header">
-        <div class="item__header-icon">
+        <!-- <div class="item__header-icon">
           <i class="ms-Icon ms-Icon--TextDocument" aria-hidden="true"></i>
-        </div>
+        </div> -->
 
         <div class="item__header-data">
           <strong>José Arthur Santos da Silva</strong>
@@ -19,13 +19,7 @@
 
       <div class="item__actions">
         <button class="item__actions-show-more">
-          <!-- <i class="ms-Icon ms-Icon--Info" aria-hidden="true"></i> -->
           <span>Ver detalhes</span>
-        </button>
-
-        <button class="item__actions-show-more">
-          <i class="ms-Icon ms-Icon--Download" aria-hidden="true"></i>
-          <span>Baixar</span>
         </button>
       </div>
     </div>
@@ -71,7 +65,7 @@ export default {
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 24px 0 8px;
+  padding-top: 24px;
 }
 
 .item__header > .item__header-icon {
@@ -110,6 +104,7 @@ export default {
   display: flex;
   flex-direction: row;
   align-items: center;
+  margin: 12px 0;
 }
 
 .item__header-time > * + * {
@@ -123,7 +118,6 @@ export default {
   justify-content: flex-end;
 
   padding: 12px 0;
-  margin-top: 8px;
   border-top: 1px solid #edebe9;
 }
 

@@ -1,5 +1,5 @@
 import { Vault } from '~/core/domain/Vault'
-import { FindVaultService } from '~/core/services/vaults/find'
+import { FindGlacierVaultService } from '~/core/services/glacier/vaults/find'
 
 interface Params {
   vault: Vault | string
@@ -10,12 +10,12 @@ export interface ExtractVaultFromParams {
 }
 
 export function instantiateExtractVaultFromParams(
-  findVaultService: FindVaultService
+  findGlacierVaultService: FindGlacierVaultService
 ): ExtractVaultFromParams {
   return {
     async extract({ vault }) {
       if (typeof vault === 'string') {
-        return await findVaultService.execute({ vaultName: vault })
+        return await findGlacierVaultService.execute({ vaultName: vault })
       }
 
       return vault

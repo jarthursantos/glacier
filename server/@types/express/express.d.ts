@@ -1,4 +1,4 @@
-import { User } from '~/domain/User'
+import { User } from '~/core/domain/User'
 
 declare global {
   namespace Express {
