@@ -20,6 +20,9 @@ import { instantiateFindGlacierVaultService } from './glacier/vaults/find'
 import { instantiateListGlacierVaultsService } from './glacier/vaults/list'
 import { instantiateImportAccessService } from './import/access'
 import { instantiateImportMetaService } from './import/meta'
+import { instantiateCompleteJobsByUserService } from './jobs/complete-by-user'
+import { instantiateCreateJobService } from './jobs/create'
+import { instantiatePendingJobsByUserService } from './jobs/pending-by-user'
 
 export const servicesRegistrations: NameAndRegistrationPair<any> = {
   // Archives
@@ -40,6 +43,11 @@ export const servicesRegistrations: NameAndRegistrationPair<any> = {
   importMetaService: asFunction(instantiateImportMetaService),
 
   // Jobs
+  completeJobsByUserService: asFunction(instantiateCompleteJobsByUserService),
+  createJobService: asFunction(instantiateCreateJobService),
+  pendingJobsByUserService: asFunction(instantiatePendingJobsByUserService),
+
+  // Glacier Jobs
   glacierArchiveJobService: asFunction(instantiateGlacierArchiveJobService),
   findGlacierJobService: asFunction(instantiateFindGlacierJobService),
   glacierInventoryJobService: asFunction(instantiateGlacierInventoryJobService),

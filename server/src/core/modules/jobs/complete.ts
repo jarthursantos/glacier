@@ -4,15 +4,15 @@ import { Job } from '~/core/domain/Job'
 import { Module } from '~/core/modules'
 import { queries } from '~/core/queries'
 
-export interface FinishJobParams {
+export interface CompleteJobParams {
   job: Job
 }
 
-export type FinishJobModule = Module<FinishJobParams>
+export type CompleteJobModule = Module<CompleteJobParams>
 
-export function instantiateFinishJobModule(
+export function instantiateCompleteJobModule(
   neo4jClient: Driver
-): FinishJobModule {
+): CompleteJobModule {
   return {
     async execute({ job }) {
       const session = neo4jClient.session()

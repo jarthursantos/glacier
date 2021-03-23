@@ -138,6 +138,24 @@ export const queries = {
         WHERE trabalho.status <> 'Expirou'
         RETURN solicitou
       `
+    },
+
+    pendingByUser({ id }: Pick<User, 'id'>) {
+      return `
+        MATCH (:Usuario { ${toParams({
+          id
+        })} })-[:SOLICITOU]->(trabalho:Trabalho { status: 'Pendente' })-[:EXTRAI]->(arquivo:Arquivo)<-[:POSSUI]-(contrato:Contrato)
+        RETURN contrato, trabalho, arquivo
+      `
+    },
+
+    completeByUser({ id }: Pick<User, 'id'>) {
+      return `
+        MATCH (:Usuario { ${toParams({
+          id
+        })} })-[:SOLICITOU]->(trabalho:Trabalho { status: 'Concluido' })-[:EXTRAI]->(arquivo:Arquivo)<-[:POSSUI]-(contrato:Contrato)
+        RETURN contrato, trabalho, arquivo
+      `
     }
   },
 

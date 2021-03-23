@@ -16,7 +16,7 @@ const lines = createInterface({ input: fileStream, crlfDelay: Infinity })
 lines.on('line', line => {
   importAccessService
     .execute({
-      bucket: 'fake-access',
+      bucket: 'qualicorp-imagem-meta',
       vaultName: 'main',
       key: line
     })

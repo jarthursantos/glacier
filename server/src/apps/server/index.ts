@@ -5,7 +5,7 @@ import express, { Request, Response, NextFunction } from 'express'
 import { isHttpError } from 'http-errors'
 
 import { auth } from '~/apps/server/middlewares/auth'
-import { contractsRouter } from '~/apps/server/routes/contracts'
+import { jobsRouter } from '~/apps/server/routes/jobs'
 import { isVaultAlreadyExistsError } from '~/core/errors/vault/VaultAlreadyExists'
 
 const app = express()
@@ -15,7 +15,7 @@ app.use(cors())
 
 app.use(auth)
 
-app.use('/contratos', contractsRouter)
+app.use('/trabalhos', jobsRouter)
 
 app.use(
   async (error: any, _req: Request, res: Response, next: NextFunction) => {

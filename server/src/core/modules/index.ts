@@ -25,9 +25,11 @@ import { instantiateListGlacierVaultsModule } from './glacier/vaults/list'
 import { instantiateActiveJobPerArchiveModule } from './jobs/active-per-archive'
 import { instantiateJobAlreadyRequestedByUserModule } from './jobs/already-requested'
 import { instantiateAttachJobUserModule } from './jobs/attach-user'
+import { instantiateCompleteJobModule } from './jobs/complete'
+import { instantiateCompleteJobsByUserModule } from './jobs/complete-by-user'
 import { instantiateCreateRetrievalJobModule } from './jobs/create'
 import { instantiateExpireJobModule } from './jobs/expire'
-import { instantiateFinishJobModule } from './jobs/finish'
+import { instantiatePendingJobsByUserModule } from './jobs/pending-by-user'
 import { instantiateDownloadS3ObjectModule } from './s3/download'
 import { instantiateListS3ObjectsModule } from './s3/list'
 import { instantiateGetUserModule } from './user/get'
@@ -96,7 +98,9 @@ export const modulesRegistrations: NameAndRegistrationPair<any> = {
   attachJobUserModule: asFunction(instantiateAttachJobUserModule),
   createRetrievalJobModule: asFunction(instantiateCreateRetrievalJobModule),
   expireJobModule: asFunction(instantiateExpireJobModule),
-  finishJobModule: asFunction(instantiateFinishJobModule),
+  completeJobModule: asFunction(instantiateCompleteJobModule),
+  completeJobsByUserModule: asFunction(instantiateCompleteJobsByUserModule),
+  pendingJobsByUserModule: asFunction(instantiatePendingJobsByUserModule),
 
   // User
   getUserModule: asFunction(instantiateGetUserModule)
